@@ -48,7 +48,7 @@ const Skiper54 = () => {
     },
   ];
   return (
-    <div className="flex h-full w-screen items-center justify-center overflow-hidden bg-[#f5f4f3]">
+    <div className="flex h-full w-full items-center justify-center overflow-hidden bg-[#f5f4f3]">
       <Carousel_006
         images={images}
         className=""
