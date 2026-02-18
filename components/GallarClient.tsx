@@ -112,11 +112,11 @@ export default function Gallery() {
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-red-500 text-white flex items-center justify-center shadow-xl hover:bg-red-600"
       >
         <Link
           href="/upload"
-          className="w-full h-full flex items-center justify-center"
+                  className="fixed bottom-14 right-6 w-14 h-14 rounded-full bg-red-500 text-white flex items-center justify-center shadow-xl hover:bg-red-600"
+
         >
           <Plus size={26} />
         </Link>
