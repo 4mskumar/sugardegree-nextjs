@@ -1,14 +1,15 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/lib/db";
 import { Image } from "@/models/image";
 
 export async function PATCH(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const {id} = await params
+
+    const { id } = await params; // ✅ REQUIRED in your Next.js version
     const { status } = await req.json();
 
     if (!["approved", "rejected", "pending"].includes(status)) {
