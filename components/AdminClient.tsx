@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type ActionType = "approve" | "reject" | "delete";
 
@@ -59,6 +60,8 @@ const toggleVisibility = async (id: string, visible: boolean) => {
   fetchImages();
 };
 
+const router = useRouter()
+
 const deleteImage = async (id: string) => {
   await fetch(`/api/images/${id}`, {
     method: "DELETE",
@@ -78,9 +81,20 @@ const deleteImage = async (id: string) => {
     setSelected([]);
   };
 
+ const handleLogout = async () => {
+  await fetch("/api/logout", { method: "POST" });
+  router.push("/login");
+};
+
   return (
     <div className="min-h-screen bg-slate-50 p-6">
+      <div className="flex  justify-between">
       <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+      <Button variant={'destructive'} onClick={handleLogout}>
+        Logout
+      </Button>
+
+      </div>
 
       {/* Tabs */}
       <div className="flex gap-3 mb-4">

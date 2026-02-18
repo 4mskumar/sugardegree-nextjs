@@ -15,6 +15,9 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const route = useRouter();
 
+  console.log("JWT_SECRET:", process.env.JWT_SECRET);
+
+
   const handleLogin = async () => {
     try {
       setLoading(true);

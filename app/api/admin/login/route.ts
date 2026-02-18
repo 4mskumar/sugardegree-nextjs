@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     if (!admin) {
       return NextResponse.json(
         { message: "Invalid credentials" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -24,35 +24,28 @@ export async function POST(req: Request) {
     if (!isMatch) {
       return NextResponse.json(
         { message: "Invalid credentials" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    const token = jwt.sign(
-      { id: admin._id },
-      process.env.JWT_SECRET!,
-      { expiresIn: "7d" }
-    );
+    const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET!, {
+      expiresIn: "7d",
+    });
 
     const response = NextResponse.json({
-      admin: { id: admin._id, email: admin.email }
+      admin: { id: admin._id, email: admin.email },
     });
 
     response.cookies.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7,
     });
 
     return response;
-
   } catch (error) {
     console.error("Login error:", error);
-    return NextResponse.json(
-      { message: "Login failed" },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: "Login failed" }, { status: 500 });
   }
 }

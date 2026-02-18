@@ -12,14 +12,18 @@ export default function Gallery() {
   const [images, setImages] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState<any>(null);
+  const [page, setPage] = useState(1);
+
   const route = useRouter();
 
   const loadImages = async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/images/public");
+      const res = await fetch(`/api/images/public?page=${page}&limit=6`);
       const data = await res.json();
-      setImages(data);
+
+      setImages((prev) => [...prev, ...data]); // append, not replace
+      setPage((prev) => prev + 1);
     } catch (error) {
       console.log("Failed to load images", error);
     } finally {
@@ -32,7 +36,7 @@ export default function Gallery() {
   }, []);
 
   const uniqueImages = Array.from(
-    new Map(images.map((i) => [i._id, i])).values()
+    new Map(images.map((i) => [i._id, i])).values(),
   );
 
   return (
@@ -90,11 +94,8 @@ export default function Gallery() {
 
       {/* LOAD MORE */}
       <div className="flex justify-center mt-10">
-        <Button
-          onClick={loadImages}
-          className="rounded-full bg-black text-white px-10 py-2 hover:bg-gray-800"
-        >
-          Load More
+        <Button disabled={loading} className="bg-red-500" onClick={loadImages}>
+          {loading ? "Loading..." : "Load More"}
         </Button>
       </div>
 
@@ -145,8 +146,12 @@ export default function Gallery() {
               <Link href="/upload">
                 <li className="hover:text-black cursor-pointer">Upload</li>
               </Link>
-              <li className="hover:text-black cursor-pointer">Privacy Policy</li>
-              <li className="hover:text-black cursor-pointer">Terms of Service</li>
+              <li className="hover:text-black cursor-pointer">
+                Privacy Policy
+              </li>
+              <li className="hover:text-black cursor-pointer">
+                Terms of Service
+              </li>
             </ul>
           </div>
 
