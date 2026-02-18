@@ -1,11 +1,9 @@
-'use client'
+"use client";
 
 import { useEffect, useState } from "react";
-
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import LocomotiveScroll from "locomotive-scroll";
 import { Skiper54 } from "@/components/ui/skiper-ui/skiper54";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -14,20 +12,15 @@ export default function Gallery() {
   const [images, setImages] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState<any>(null);
-  const route = useRouter()
-
-  useEffect(() => {
-    const locomotiveScroll = new LocomotiveScroll();
-  }, []);
+  const route = useRouter();
 
   const loadImages = async () => {
     try {
       setLoading(true);
-      const res = await fetch("api/images/public");
+      const res = await fetch("/api/images/public");
       const data = await res.json();
       setImages(data);
     } catch (error) {
-      setLoading(false);
       console.log("Failed to load images", error);
     } finally {
       setLoading(false);
@@ -37,92 +30,83 @@ export default function Gallery() {
   useEffect(() => {
     loadImages();
   }, []);
+
   const uniqueImages = Array.from(
-    new Map(images.map((i) => [i._id, i])).values(),
+    new Map(images.map((i) => [i._id, i])).values()
   );
 
   return (
-    <div className="min-h-screen px-4 py-6 relative flex flex-col">
-      {/* Header */}
+    <div className="min-h-screen px-4 py-6 flex flex-col bg-white">
+      {/* HEADER */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-semibold tracking-tight text-[#E8918B]">
           sugar<span className="text-[#A5CFC8]">degree</span>°
         </h1>
       </div>
-      <div>
+
+      {/* PICKS */}
+      <div className="mb-10">
         <div className="flex items-center gap-3 mb-5">
           <span className="h-[1px] flex-1 bg-gradient-to-r from-[#E8918B]/40 to-transparent" />
-
           <h2 className="text-sm md:text-base font-semibold uppercase tracking-widest text-zinc-500">
             Our Picks
           </h2>
-
           <span className="h-[1px] flex-1 bg-gradient-to-l from-[#A5CFC8]/40 to-transparent" />
         </div>
 
         <Skiper54 />
       </div>
 
-      {/* Bento Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[180px] gap-4 flex-1">
+      {/* GRID */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {uniqueImages.map((img, i) => (
           <motion.div
             key={img._id}
             onClick={() => setSelectedImage(img)}
-            whileHover={{ scale: 1.02 }}
-            className={`
-              relative overflow-hidden rounded-3xl shadow-lg cursor-pointer group
+            whileHover={{ scale: 1.03 }}
+            className={`relative overflow-hidden rounded-3xl shadow-lg cursor-pointer group
               ${i % 6 === 0 ? "md:col-span-2 md:row-span-2" : ""}
               ${i % 5 === 0 ? "row-span-2" : ""}
             `}
           >
             <img
               src={img.imageUrl}
+              alt="gallery"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition" />
           </motion.div>
         ))}
 
-        {/* Skeletons */}
+        {/* SKELETON */}
         {loading &&
           Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="h-48 bg-gray-300/50 rounded-2xl animate-pulse"
+              className="h-[180px] bg-gray-300/50 rounded-2xl animate-pulse"
             />
           ))}
       </div>
 
-      {/* Load More */}
+      {/* LOAD MORE */}
       <div className="flex justify-center mt-10">
         <Button
-          onClick={() => {
-            
-            loadImages();
-          }}
+          onClick={loadImages}
           className="rounded-full bg-black text-white px-10 py-2 hover:bg-gray-800"
         >
           Load More
         </Button>
       </div>
 
-      {/* Floating Upload Button */}
-
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+      {/* FLOATING BUTTON */}
+      <Link
+        href="/upload"
+        className="fixed bottom-8 right-6 w-14 h-14 rounded-full bg-red-500 text-white flex items-center justify-center shadow-xl hover:bg-red-600 z-50"
       >
-        <Link
-          href="/upload"
-                  className="fixed bottom-14 right-6 w-14 h-14 rounded-full bg-red-500 text-white flex items-center justify-center shadow-xl hover:bg-red-600"
+        <Plus size={26} />
+      </Link>
 
-        >
-          <Plus size={26} />
-        </Link>
-      </motion.button>
-
-      {/* Modal */}
+      {/* MODAL */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -146,7 +130,6 @@ export default function Gallery() {
       {/* FOOTER */}
       <footer className="mt-16 border-t border-gray-200 pt-8 pb-4 text-sm text-gray-600">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* About */}
           <div>
             <h3 className="font-semibold text-gray-800 mb-2">SugarDegree</h3>
             <p className="text-gray-500 text-sm">
@@ -155,7 +138,6 @@ export default function Gallery() {
             </p>
           </div>
 
-          {/* Links */}
           <div>
             <h3 className="font-semibold text-gray-800 mb-2">Quick Links</h3>
             <ul className="space-y-1">
@@ -163,16 +145,11 @@ export default function Gallery() {
               <Link href="/upload">
                 <li className="hover:text-black cursor-pointer">Upload</li>
               </Link>
-              <li className="hover:text-black cursor-pointer">
-                Privacy Policy
-              </li>
-              <li className="hover:text-black cursor-pointer">
-                Terms of Service
-              </li>
+              <li className="hover:text-black cursor-pointer">Privacy Policy</li>
+              <li className="hover:text-black cursor-pointer">Terms of Service</li>
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
             <h3 className="font-semibold text-gray-800 mb-2">Contact</h3>
             <p>Email: support@sugardegree.com</p>
@@ -180,11 +157,9 @@ export default function Gallery() {
           </div>
         </div>
 
-        {/* Bottom bar */}
         <div className="mt-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400">
           <p>© {new Date().getFullYear()} SugarDegree. All rights reserved.</p>
 
-          {/* Hidden admin link */}
           <button
             onClick={() => route.push("/login")}
             className="mt-2 md:mt-0 text-gray-400 hover:text-black transition"
