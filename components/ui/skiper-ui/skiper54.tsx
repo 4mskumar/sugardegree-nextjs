@@ -37,16 +37,6 @@ const Skiper54 = () => {
       alt: "Illustrations by ©AarzooAly",
       title: "Finally I'm 24",
     },
-    {
-      src: "https://cdn-efohi.nitrocdn.com/nzhjCTbLRQsVpZZpEWBzEjrDSwxMfKMK/assets/images/optimized/rev-8351336/yummycake.in/wp-content/uploads/2023/12/Eggless-Bento-Cake.jpg",
-      alt: "Illustrations by ©AarzooAly",
-      title: "EWWWWW!!!",
-    },
-    {
-      src: "https://zivmart.com/wp-content/uploads/2023/07/Bento-08.jpg",
-      alt: "Illustrations by ©AarzooAly",
-      title: "Happy birthday!!!!",
-    },
   ];
   return (
     <div className="flex h-full w-full items-center justify-center overflow-hidden">
@@ -128,7 +118,7 @@ const Carousel_006 = ({
               <div className="relative h-full w-full border">
                 <Image
                   src={img.src}
-                  alt={img.alt}
+                  alt={'Sugardegree bento cake ideas top picks'}
                   className="h-full w-full scale-105 object-cover"
                   width={400}
                   height={400}
