@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,11 +8,36 @@ import { Skiper54 } from "@/components/ui/skiper-ui/skiper54";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+import LocomotiveScroll from "locomotive-scroll";
+import Image from "next/image";
+
 export default function Gallery() {
   const [images, setImages] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const [page, setPage] = useState(1);
+  const [scroll, setScroll] = useState<any>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    let locoScroll: any;
+
+    const initScroll = async () => {
+      if (!scrollRef.current) return;
+
+      const LocomotiveScroll = (await import("locomotive-scroll")).default;
+
+      locoScroll = new LocomotiveScroll({});
+
+      setScroll(locoScroll);
+    };
+
+    initScroll();
+
+    return () => {
+      if (locoScroll) locoScroll.destroy();
+    };
+  }, []);
 
   const route = useRouter();
 
@@ -40,16 +65,20 @@ export default function Gallery() {
   );
 
   return (
-    <div className="min-h-screen px-4 py-6 flex flex-col bg-white">
+    <main
+      ref={scrollRef}
+      data-scroll-container
+      className="min-h-screen px-4 py-6 flex flex-col bg-white"
+    >
       {/* HEADER */}
-      <div className="flex justify-between items-center mb-6">
+      <header className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-semibold tracking-tight text-[#E8918B]">
           sugar<span className="text-[#A5CFC8]">degree</span>°
         </h1>
-      </div>
+      </header>
 
       {/* PICKS */}
-      <div className="mb-10">
+      <section className="mb-10">
         <div className="flex items-center gap-3 mb-5">
           <span className="h-[1px] flex-1 bg-gradient-to-r from-[#E8918B]/40 to-transparent" />
           <h2 className="text-sm md:text-base font-semibold uppercase tracking-widest text-zinc-500">
@@ -59,10 +88,10 @@ export default function Gallery() {
         </div>
 
         <Skiper54 />
-      </div>
+      </section>
 
       {/* GRID */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <section className="grid grid-cols-2 -mt-10 md:grid-cols-4 gap-4">
         {uniqueImages.map((img, i) => (
           <motion.div
             key={img._id}
@@ -73,11 +102,14 @@ export default function Gallery() {
               ${i % 5 === 0 ? "row-span-2" : ""}
             `}
           >
-            <img
+            <Image
               src={img.imageUrl}
-              alt="gallery"
+              alt="Bento cake design by sugardegree sugardegree.in "
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              width={400}
+              height={400}
             />
+            hello
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition" />
           </motion.div>
         ))}
@@ -90,14 +122,14 @@ export default function Gallery() {
               className="h-[180px] bg-gray-300/50 rounded-2xl animate-pulse"
             />
           ))}
-      </div>
+      </section>
 
       {/* LOAD MORE */}
-      <div className="flex justify-center mt-10">
+      <section className="flex justify-center mt-10">
         <Button disabled={loading} className="bg-red-500" onClick={loadImages}>
           {loading ? "Loading..." : "Load More"}
         </Button>
-      </div>
+      </section>
 
       {/* FLOATING BUTTON */}
       <Link
@@ -132,32 +164,37 @@ export default function Gallery() {
       <footer className="mt-16 border-t border-gray-200 pt-8 pb-4 text-sm text-gray-600">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <h3 className="font-semibold text-gray-800 mb-2">SugarDegree</h3>
-            <p className="text-gray-500 text-sm">
+            <h1 className="font-semibold text-gray-800 mb-2">SugarDegree</h1>
+            <p className="text-gray-500 text-justify text-sm">
               A community gallery for sharing creative moments and visual
-              stories. Built with love for design & simplicity.
+              stories. Built with love for design & simplicity. Explore
+              SugarDegree’s handcrafted bento cake gallery. Each cake is
+              designed for DIY fun and special moments. Our cakes are perfect
+              for birthdays, anniversaries and celebrations.
             </p>
+            <p className="text-gray-500 text-justify text-sm"></p>
           </div>
 
           <div>
             <h3 className="font-semibold text-gray-800 mb-2">Quick Links</h3>
             <ul className="space-y-1">
-              <li className="hover:text-black cursor-pointer">Home</li>
+              <Link href="/">
+                <li className="hover:text-black cursor-pointer">Gallary</li>
+              </Link>
               <Link href="/upload">
                 <li className="hover:text-black cursor-pointer">Upload</li>
               </Link>
+              <Link href={'/faq'} >
               <li className="hover:text-black cursor-pointer">
-                Privacy Policy
+                FAQ
               </li>
-              <li className="hover:text-black cursor-pointer">
-                Terms of Service
-              </li>
+              </Link>              
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold text-gray-800 mb-2">Contact</h3>
-            <p>Email: support@sugardegree.com</p>
+            <p>Email: oder.sugardegree@gmail.com</p>
             <p>Instagram: @sugardegree.in</p>
           </div>
         </div>
@@ -173,6 +210,6 @@ export default function Gallery() {
           </button>
         </div>
       </footer>
-    </div>
+    </main>
   );
 }

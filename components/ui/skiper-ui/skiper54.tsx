@@ -13,6 +13,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import Image from "next/image";
 
 const Skiper54 = () => {
   const images = [
@@ -48,7 +49,7 @@ const Skiper54 = () => {
     },
   ];
   return (
-    <div className="flex h-full w-full items-center justify-center overflow-hidden bg-[#f5f4f3]">
+    <div className="flex h-full w-full items-center justify-center overflow-hidden">
       <Carousel_006
         images={images}
         className=""
@@ -125,10 +126,12 @@ const Carousel_006 = ({
               className="h-full w-full overflow-hidden rounded-3xl"
             >
               <div className="relative h-full w-full border">
-                <img
+                <Image
                   src={img.src}
                   alt={img.alt}
                   className="h-full w-full scale-105 object-cover"
+                  width={400}
+                  height={400}
                 />
               </div>
             </motion.div>
