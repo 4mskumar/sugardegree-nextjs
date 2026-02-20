@@ -26,6 +26,10 @@ You can conveniently order your favorite bento cake designs online through Zomat
   icons: {
     icon: "/cake.png",
   },
+  robots: {
+    index: true,
+    follow: true,
+  }
 };
 const page = () => {
   return (

@@ -30,7 +30,7 @@ export const metadata = {
     images: ["/cake.png"],
   },
     robots: {
-    index: false,
+    index: true,
     follow: true,
   },
 };
