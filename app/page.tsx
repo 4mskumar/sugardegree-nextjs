@@ -1,5 +1,5 @@
 import Gallery from "@/components/GallarClient";
-import { icons } from "lucide-react";
+import Menu from "@/components/MenuClient";
 
 export const metadata = {
   title: "Cake Gallery | SugarDegree – Custom Bento Cakes",
@@ -16,6 +16,15 @@ You can conveniently order your favorite bento cake designs online through Zomat
     "cake designs",
     "sugardegree",
     "DIY cake kit",
+    "bento cakes near delhi",
+    "birthday bento cakes in delhi",
+    "birthday bento cakes",
+    "bento cake delivery",
+    "bento cake inspiration",
+    "sugardegree bento cake",
+    "sugardegree DIY cake kit",
+    "affordable bento cakes in delhi",
+    "sugardegree cakes in delhi",
   ],
   openGraph: {
     title: "Cake Gallery - SugarDegree",
@@ -29,11 +38,13 @@ You can conveniently order your favorite bento cake designs online through Zomat
   robots: {
     index: true,
     follow: true,
-  }
+  },
 };
+
+
 const page = () => {
   return (
-    <div>
+    <div className="relative">
       <Gallery />
       <script
         type="application/ld+json"

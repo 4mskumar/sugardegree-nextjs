@@ -10,6 +10,9 @@ export const metadata = {
     "sugar degree query",
     "sugardegree",
     "DIY cake kit",
+        "birthday cakes delhi",
+    "bento cake startup india",
+    "custom cake experiences",
   ],
   openGraph: {
     title: "FAQs - SugarDegree",

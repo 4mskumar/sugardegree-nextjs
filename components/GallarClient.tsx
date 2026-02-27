@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 
 import LocomotiveScroll from "locomotive-scroll";
 import Image from "next/image";
+import Menu from "./MenuClient";
 
 export default function Gallery() {
   const [images, setImages] = useState<any[]>([]);
@@ -68,17 +69,17 @@ export default function Gallery() {
     <main
       ref={scrollRef}
       data-scroll-container
-      className="min-h-screen px-4 py-6 flex flex-col bg-white"
-    >
+      className="min-h-screen -z-10 relative px-4 py-6 flex flex-col "
+    >      
       {/* HEADER */}
-      <header className="flex justify-between items-center mb-6">
+      <header className="flex bg-transparent -z-10 justify-between items-center mb-6">
         <h1 className="text-3xl font-semibold tracking-tight text-[#E8918B]">
           sugar<span className="text-[#A5CFC8]">degree</span>°
         </h1>
       </header>
 
       {/* PICKS */}
-      <section className="mb-10">
+      <section className="mb-10 bg-white">
         <div className="flex items-center gap-3 mb-5">
           <span className="h-[1px] flex-1 bg-gradient-to-r from-[#E8918B]/40 to-transparent" />
           <h2 className="text-sm md:text-base font-semibold uppercase tracking-widest text-zinc-500">
@@ -91,7 +92,7 @@ export default function Gallery() {
       </section>
 
       {/* GRID */}
-      <section className="grid grid-cols-2 -mt-10 md:grid-cols-4 gap-4">
+      <section className="grid bg-white grid-cols-2 -mt-10 md:grid-cols-4 gap-4">
         {uniqueImages.map((img, i) => (
           <motion.div
             key={img._id}
@@ -184,17 +185,23 @@ export default function Gallery() {
               <Link href="/upload">
                 <li className="hover:text-black cursor-pointer">Upload</li>
               </Link>
-              <Link href={'/faq'} >
-              <li className="hover:text-black cursor-pointer">
-                FAQ
-              </li>
-              </Link>              
+              <Link href={"/faq"}>
+                <li className="hover:text-black cursor-pointer">FAQ</li>
+              </Link>
+              <Link href={"about"}>
+                <li className="hover:text-black cursor-pointer">About</li>
+              </Link>
+              <Link href={"/terms"}>
+                <li className="hover:text-black cursor-pointer">
+                  Terms and conditions
+                </li>
+              </Link>
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold text-gray-800 mb-2">Contact</h3>
-            <p>Email: oder.sugardegree@gmail.com</p>
+            <p>Email: order.sugardegree@gmail.com</p>
             <p>Instagram: @sugardegree.in</p>
           </div>
         </div>
