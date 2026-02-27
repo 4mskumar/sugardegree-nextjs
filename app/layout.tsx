@@ -47,7 +47,7 @@ export default function RootLayout({
               "@type": "Bakery",
               name: "SugarDegree",
               url: "https://sugardegree.in",
-              logo: "https://sugardegree.in/cake.png",
+              // logo: "https://sugardegree.in/cake.png",
               description:
                 "DIY affordable bento cakes for birthdays, weddings and special occasions in Saket, Delhi.",
               address: {
