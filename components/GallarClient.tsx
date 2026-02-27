@@ -69,7 +69,7 @@ export default function Gallery() {
     <main
       ref={scrollRef}
       data-scroll-container
-      className="min-h-screen -z-10 relative px-4 py-6 flex flex-col "
+      className="min-h-screen relative px-4 py-6 flex flex-col "
     >      
       {/* HEADER */}
       <header className="flex bg-transparent -z-10 justify-between items-center mb-6">
@@ -188,7 +188,7 @@ export default function Gallery() {
               <Link href={"/faq"}>
                 <li className="hover:text-black cursor-pointer">FAQ</li>
               </Link>
-              <Link href={"about"}>
+              <Link href={"/about"}>
                 <li className="hover:text-black cursor-pointer">About</li>
               </Link>
               <Link href={"/terms"}>
