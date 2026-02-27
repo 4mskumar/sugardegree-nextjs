@@ -30,10 +30,10 @@ You can conveniently order your favorite bento cake designs online through Zomat
     title: "Cake Gallery - SugarDegree",
     description: "Explore our creative bento cake gallery.",
     url: "https://sugardegree.in/gallery",
-    images: ["/cake.png"],
+    images: ["/favicon.ico"],
   },
   icons: {
-    icon: "/cake.png",
+    icon: "/favicon.ico",
   },
   robots: {
     index: true,

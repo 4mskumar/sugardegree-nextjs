@@ -21,11 +21,10 @@ export const metadata = {
     description:
       "SugarDegree was born in Saket, Delhi to make celebrations sweeter with affordable and aesthetic bento cakes.",
     url: "https://sugardegree.in/about",
-    images: ["/cake.png"],
-    type: "website",
+    images: ["/favicon.ico"],
   },
   icons: {
-    icon: "/cake.png",
+    icon: "/favicon.ico",
   },
   robots: {
     index: true,

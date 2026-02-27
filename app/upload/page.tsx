@@ -27,7 +27,7 @@ export const metadata = {
     title: "Sugardegree Upload Form - SugarDegree",
     description: "Upload your bento cake designs to share with the community.",
     url: "https://sugardegree.in/upload",
-    images: ["/cake.png"],
+    images: ["/favicon.ico"],
   },
     robots: {
     index: true,

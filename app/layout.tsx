@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
-import Script from "next/script";
+import Head from "next/head";
 import Menu from "@/components/MenuClient";
 
 const geistSans = Geist({
@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SugarDegree",
+  title: "sugardegree",
   description:
-    "DIY affordable bento cakes for birthdays, weddings and special occasions in Saket, Delhi.",
+    "sugardegree.in. Website of sugardegree which sells DIY bento boxes in which there is a cake to decorate and eat. Made by Aditya Kumar",
   icons: {
     icon: "/cake.png",
   },
@@ -26,33 +26,27 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased `}>
-        
-        {/* {children} */}
-        <Toaster />
-
-        {/* Schema */}
-        <Script
-          id="bakery-schema"
+      <Head>
+        <script
           type="application/ld+json"
-          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Bakery",
               name: "SugarDegree",
               url: "https://sugardegree.in",
-              // logo: "https://sugardegree.in/cake.png",
+              logo: "./cake.png",
               description:
-                "DIY affordable bento cakes for birthdays, weddings and special occasions in Saket, Delhi.",
+                "DIY affordable bento cakes for birthdays, weddings and special occasions in Saket, Delhi which will make your celebrations extra special.",
               address: {
                 "@type": "PostalAddress",
-                addressLocality: "Delhi",
+                streetAddress: "Your street",
+                addressLocality: "Your city",
                 addressCountry: "IN",
               },
               sameAs: [
@@ -62,6 +56,14 @@ export default function RootLayout({
             }),
           }}
         />
+
+        <link rel="icon" href="/cake.png" />
+      </Head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} relative antialiased `}
+      >
+        {children}
+        <Toaster />
       </body>
     </html>
   );
